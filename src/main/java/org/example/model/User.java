@@ -1,8 +1,13 @@
 package org.example.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class User {
     private long id;
     private String name;
