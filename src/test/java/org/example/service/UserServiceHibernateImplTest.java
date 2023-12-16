@@ -1,16 +1,17 @@
 package org.example.service;
 
+import org.hibernate.HibernateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserServiceJDBCImplTest {
+class UserServiceHibernateImplTest {
     private final String testName = "Lilu";
     private final String testLastName = "Dallas";
     private final byte testAge = 31;
 
-    private final UserService userService = new UserServiceJDBCImpl();
+    private final UserService userService = new UserServiceHibernateImpl();
 
     @BeforeEach
     void tuning() {
@@ -21,6 +22,16 @@ class UserServiceJDBCImplTest {
 
     @Test
     void createUserTable() {
+        try {
+            userService.dropUserTable();
+            userService.createUserTable();
+        } catch (Exception e) {
+            fail("При тестировании создания таблицы, выбросился Exception" + e.getMessage());
+        }
+
+//        userService.dropUserTable();
+////        assertThrows(HibernateException.class, userService::createUserTable);
+//        assertDoesNotThrow(userService::createUserTable);
     }
 
     @Test
