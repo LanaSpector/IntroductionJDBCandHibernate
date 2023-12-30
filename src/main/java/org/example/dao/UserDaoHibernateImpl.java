@@ -25,7 +25,6 @@ public class UserDaoHibernateImpl implements UserDao {
             NativeQuery query = session.createSQLQuery(sql);
             query.executeUpdate();
             transaction.commit();
-            throw new HibernateException("exception");
         }
     }
 

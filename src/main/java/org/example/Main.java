@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        script(new UserServiceJDBCImpl());
-//        script(new UserServiceHibernateImpl());
+//        script(new UserServiceJDBCImpl());
+        script(new UserServiceHibernateImpl());
     }
 
     public static void script(UserService userService) {

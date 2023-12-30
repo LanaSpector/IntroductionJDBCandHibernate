@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.hibernate.HibernateException;
+import org.example.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,40 +22,35 @@ class UserServiceHibernateImplTest {
 
     @Test
     void createUserTable() {
-        try {
-            userService.dropUserTable();
-            userService.createUserTable();
-        } catch (Exception e) {
-            fail("При тестировании создания таблицы, выбросился Exception" + e.getMessage());
-        }
-
-//        userService.dropUserTable();
-////        assertThrows(HibernateException.class, userService::createUserTable);
-//        assertDoesNotThrow(userService::createUserTable);
+        userService.dropUserTable();
+        assertDoesNotThrow(userService::createUserTable);
     }
 
     @Test
     void dropUserTable() {
-        try {
-            userService.dropUserTable();
-        } catch (Exception e) {
-            fail("При тестировании удаления таблицы, выбросился Exception" + e.getMessage());
-        }
+        assertDoesNotThrow(userService::dropUserTable);
     }
 
     @Test
     void saveUser() {
+        User user = new User(1, testName, testLastName, testAge);
+        assertEquals(user, userService.getAllUsers().get(0));
     }
 
     @Test
     void removeUserById() {
+        userService.removeUserById(1);
+        assertTrue(userService.getAllUsers().isEmpty(), "Проверьте корректность работы метода удаления пользователя");
     }
 
     @Test
     void getAllUsers() {
+        assertFalse(userService.getAllUsers().size() != 1, "Проверьте корректность работы метода сохранения/удаления пользователей");
     }
 
     @Test
     void clearUserTable() {
+        userService.clearUserTable();
+        assertTrue(userService.getAllUsers().isEmpty(), "Метод очистки реализован некорректно");
     }
 }
